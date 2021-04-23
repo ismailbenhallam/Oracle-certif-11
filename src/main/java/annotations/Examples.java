@@ -28,7 +28,7 @@ public class Examples {
 
     @SuppressWarnings("deprecation")
     private static void deprecated() {
-        final var deprecatedMethods = new DeprecatedMethods();
+        final var deprecatedMethods = new DeprecatedMethod();
         deprecatedMethods.save();
     }
 
@@ -39,6 +39,6 @@ public class Examples {
     }
 
     private static void safeVarargs() {
-        new SafeVarargsMethods().some(List.of("Ko"));
+        new SafeVarargsMethod().some(List.of("Ko"));
     }
 }

@@ -6,11 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="Certif" />
+        <module name="oracle-certif-11" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="Certif" target="11" />
+      <module name="oracle-certif-11" target="11" />
     </bytecodeTargetLevel>
   </component>
 </project>

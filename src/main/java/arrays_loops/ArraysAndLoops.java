@@ -1,11 +1,5 @@
 package arrays_loops;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.util.concurrent.Executors;
-
 public class ArraysAndLoops {
     public static void main(String[] args) {
 
@@ -16,24 +10,30 @@ public class ArraysAndLoops {
         /////////
         ko:
         while (true) {
-            if (Math.random() < 0.5) {
+            if (Math.random() < 0.1) {
                 break ko;
             }
             System.out.println("Ko");
         }
 
         switch (4) {
-            case 5:
-                break;
         }
 
         if (false) ;
         else ;
 
 
+        covariant();
+    }
+
+    private static void covariant() {
         // Covariant
         CharSequence[] charSequences = new StringBuilder[10];
-        charSequences[0] = new StringBuffer(); // ArrayStoreException
+        try {
+            charSequences[0] = new StringBuffer(); // ArrayStoreException
+        } catch (ArrayStoreException e) {
+            System.out.println("Caught exception : " + e);
+        }
     }
 
 }

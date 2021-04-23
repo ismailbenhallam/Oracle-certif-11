@@ -28,6 +28,9 @@ public class Notes {
                     }
                 };
 
+                new Abstract("ddd") {
+                };
+
                 class L {
 
                 }
@@ -41,29 +44,10 @@ public class Notes {
         }
 
     }
+}
 
-    Math takeSystem1(System s) {
-        return null;
+abstract class Abstract {
+    Abstract(String n) {
+
     }
-
-    static Math takeSystem2(Notes n, System s) {
-        return null;
-    }
-
-    Math takeSystem3(Notes notes, System system) {
-        return null;
-    }
-
-    public static void main(String[] args) {
-        takeIt(Notes::takeSystem1);
-        takeIt(Notes::takeSystem2);
-        var notes = new Notes();
-        takeIt(notes::takeSystem3);
-    }
-
-
-    static BigDecimal takeIt(BiFunction<Notes, System, Math> f) {
-        return null;
-    }
-
 }

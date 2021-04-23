@@ -1,8 +1,11 @@
 package stream;
 
+import stream.collectors.OddAndEvenCollector;
+
 import java.util.*;
-import java.util.List;
-import java.util.function.*;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -19,23 +22,48 @@ public class Examples {
     }
 
     public static void main(String[] args) {
-        // takeWhile
-//        System.out.println(new Random().ints().parallel().peek(System.out::println).takeWhile(i -> i < 0).count());
 
-        // Short-circuit terminal oprations
-//        System.out.println(new Random().ints().parallel().peek(System.out::println).anyMatch(i -> i < 0));
+//        shortCircuitTerminalOperations();
 
 //        predefinedFunctionalInterfacesMethods();
 
 //        flatMap();
 
-        reduce();
-
+//        reduce();
 
         // Collectors
-        summaryStatistics();
+//        summaryStatistics();
 
 //        collectors();
+
+    }
+
+    private static void shortCircuitTerminalOperations() {
+        // Ex1
+//        System.out.println(new Random().ints().parallel().peek(System.out::println).anyMatch(i -> i < 0));
+
+        // Ex2
+        var ai = new AtomicInteger();
+        var stream = Stream.of("old", "king", "colde", "was", "a", "merry", "old", "soul").parallel();
+        stream.filter(e -> {
+            ai.incrementAndGet();
+            return e.contains("o");
+        }).allMatch(s -> s.indexOf("o") > 0); // short-Circuit Terminal Operation
+
+        /*
+            This will output any number between 1 to 8
+            It depends on the JVM and the number of cores in the machine
+            NOTE: the stream is PARALLEL !!
+         */
+        System.out.println("AI = " + ai);
+
+        // Ex3
+        System.out.println(new Random()
+                .ints() // Returns an effectively unlimited stream of pseudorandom int values.
+                .parallel().peek(System.out::println)
+                .takeWhile(i -> i < 0) // Short-Circuit Operation
+                .count());
+
     }
 
     private static void summaryStatistics() {
@@ -91,5 +119,6 @@ public class Examples {
                 .distinct()
                 .flatMap(l -> l.stream())
                 .forEach(System.out::println);
+
     }
 }

@@ -8,8 +8,15 @@ public class SerializableObject implements Serializable {
     public static final String RESOURCES_SERIALIZABLE_OBJECT_TXT = "serializableObject.txt";
     private final String s;
 
+    public SerializableObject() {
+        s = "";
+        System.out.println("SerializableObject");
+    }
+
+    // NOTE: the constructor is not called when we "deserialize" an object !!
     public SerializableObject(String s) {
         this.s = s;
+        System.out.printf("SerializableObject(String %s)\n", s);
     }
 
     private static final long serialVersionUID = 1;
@@ -28,6 +35,7 @@ public class SerializableObject implements Serializable {
 
     public static void main(String[] args) throws IOException, ClassNotFoundException {
         save();
+        System.out.println("________");
         System.out.println(get().s);
     }
 

@@ -1,6 +1,6 @@
 package jdbc;
 
-import jdbc.utils.Person;
+import _shared_entities.Person;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -8,9 +8,10 @@ import java.util.Collections;
 import java.util.List;
 
 public class Examples implements AutoCloseable {
-    private static final String URL = "jdbc:mysql://localhost:3307/certif_mysql";
+    private static final String DATABASE_NAME = "certif_mysql";
     private static final String USER = "root";
     private static final String PASSWORD = "root";
+    private static final String URL = "jdbc:mysql://localhost:3307/" + DATABASE_NAME;
     private static final String TABLE = "persons";
     private static final String SELECT_ALL_QUERY = "SELECT * FROM " + TABLE;
     private static final String INSERT_QUERY = "INSERT INTO " + TABLE + " VALUES(NULL,?,?)";
@@ -49,7 +50,7 @@ public class Examples implements AutoCloseable {
                     new Person(0, "Eren", "YIGAR")
                     , new Person(0, "Mikassa", "AKRAMAN")
                     , new Person(0, "Levi", "AKRAMAN")
-//                    , new Person(0, "REMOOVE", "IF U WANT TO TEST TRANSACTIONAL MODE")
+//                    , new Person(0, "THIS WILL FAIl", "CAUSE THE ITS DECLARED IN THE DATABASE AS varchar(15)")
             ));*/
 
 //            examples.updatePerson(new Person(18, "Levi", "AKRAMAN"));

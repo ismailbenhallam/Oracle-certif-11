@@ -1,10 +1,12 @@
 package security;
 
+import java.io.File;
 import java.io.FilePermission;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.net.ServerSocket;
 import java.net.SocketPermission;
+import java.nio.file.AccessDeniedException;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -21,11 +23,11 @@ public class Examples {
     public static void main(String[] args) {
 //        checkPermissions();
 
-//        doPrivileged();
+        doPrivileged();
 
 //        messageDigest("My strong password");
 
-        SQLInjections("value; drop table x;");
+//        SQLInjections("value; drop table x;");
 
 //        readFile();
 //        acceptSocket();
@@ -69,15 +71,36 @@ public class Examples {
     }
 
     private static void doPrivileged() {
-        var fileContent = AccessController.doPrivileged((PrivilegedAction<String>) () -> {
-            try {
-                return Files.readString(Path.of("pom.xml"));
-            } catch (IOException e) {
-                e.printStackTrace();
-                return "";
-            }
-        });
-        System.out.println(fileContent);
+        AccessController.doPrivileged((PrivilegedAction<String>) () -> {
+                    try {
+                        return Files.readString(Path.of("pom.xml"));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        return "";
+                    }
+                }
+        );
+
+        System.setSecurityManager(new SecurityManager());
+        // Ensure that even if the caller has full permissions, it is restricted to perform only the read operation.
+        Path file = Path.of("will_not_be_created.txt");
+        Permission readOnlyPerm = new FilePermission(file.toString(), "read");
+        PermissionCollection permissionCollection = readOnlyPerm.newPermissionCollection();
+        permissionCollection.add(readOnlyPerm);
+        AccessController.doPrivileged((PrivilegedAction<Void>) () -> {
+                    try {
+                        Files.writeString(file, "Kooo");
+                    } catch (AccessControlException e) {
+                        System.out.println("As expected ;) :" + e.getMessage());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    return null;
+                }
+                , new AccessControlContext(new ProtectionDomain[]{
+                        new ProtectionDomain(null, permissionCollection)
+                })
+        );
     }
 
 

@@ -1,6 +1,7 @@
 package generics;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Examples {
@@ -29,11 +30,13 @@ public class Examples {
 
         Object o = listOfUnknownType.get(0);
 
+        /////////////
+        HashMap<?, List<String>> box = new HashMap<String, List<String>>();
     }
 
     private static void invariant() {
         // NOTE: Invariant
-//        List<CharSequence> charSequences = new ArrayList<String>(); // Cannot compile, unlike Arrays covariant
+//        List<CharSequence> charSequences = new ArrayList<String>(); // Cannot compile, unlike Arrays
         List<String> strings = new ArrayList<>();
         List values = strings;
         List<CharSequence> charSequences = values;
@@ -57,10 +60,10 @@ public class Examples {
         list = new ArrayList<Number>();
 
         list.add(5);
-        Number number = null; // some number
+        Number number = 9;
 //        strings.add(number); // Forbidden
 
 //        Integer integer = list.get(0); // Forbidden
-        Object object = list.get(0); // Forbidden
+        Object object = list.get(0);
     }
 }

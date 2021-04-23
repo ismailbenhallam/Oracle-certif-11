@@ -1,14 +1,11 @@
 package primitives_AND_dates;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.text.NumberFormat;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
-import java.util.*;
-import java.util.function.IntFunction;
+import java.util.List;
+import java.util.Locale;
 
 public class PrimitivesAndDates {
     static void primitives() {
@@ -17,35 +14,57 @@ public class PrimitivesAndDates {
             if one of them is bigger than int, then the result will be of this type
          */
         byte b1 = 1;
-        byte b2 = 1;
+        byte b2 = 12;
         int b = b1 + b2;
 
-        //switch applicable just for Strings, enums, < int..
-        // & vs &&
-        //
         // >> << >>>
         int x = 4 >>> 4;
 
 
+        // & vs &&
         x = 101;
         if (false | true | false | ++x > 0) {
             System.out.println(x);
         }
 
-        var c = 0;
+        var i = 0;
         JACK:
-        while (c < 8) {
+        while (i < 8) {
             JILL:
-            System.out.println(c);
-            if (c > 3) break JACK;
-            else c++;
+            System.out.println(i);
+            if (i > 3) break JACK;
+            else i++;
         }
+    }
 
-        long l = 'd';
-        byte bfff = 4;
-        short s = bfff;
-        char ch = (char) bfff;
+    private static void primitivesCompatibility() {
+        byte b = 1;
+        short s = 1;
+        char c = 1;
+        int i = 1;
+        float f = 1;
+        double d = 1;
 
+        s = b;
+
+        i = b;
+        i = c;
+        i = s;
+
+        f = b;
+        f = s;
+        f = c;
+        f = i;
+
+        d = b;
+        d = s;
+        d = c;
+        d = i;
+        d = f;
+    }
+
+    private static void wrappers() {
+        Integer i = 9;
     }
 
     static void date() {
@@ -65,13 +84,12 @@ public class PrimitivesAndDates {
         var locales = List.of(maroc, france, usa);
         System.out.println("\n10 in different currency formatters: ");
         locales.stream().map(NumberFormat::getCurrencyInstance).forEach(nf -> System.out.println(" - " + nf.format(10)));
-
-
     }
 
     public static void main(String[] args) {
         primitives();
         date();
     }
+
 
 }
