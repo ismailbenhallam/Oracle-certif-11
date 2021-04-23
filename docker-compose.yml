@@ -1,0 +1,16 @@
+version: '3.4'
+
+services:
+  certif-mysql:
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: certif_mysql
+    ports:
+      - "3307:3306"
+    volumes:
+      - data:/var/lib/mysql
+
+volumes:
+  data:
+    name: certif-mysql-data
